@@ -54,11 +54,28 @@
   <audio data-key="70" src="sounds/openhat.wav"></audio>
   <audio data-key="71" src="sounds/boom.wav"></audio>
   <audio data-key="72" src="sounds/ride.wav"></audio>
-  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>file:///home/umang/Coding/JavaScript30/01%20-%20JavaScript%20Drum%20Kit/index-FINISHED.html
+  
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    let requiredElement = document.querySelector(`[data-key="${e.keyCode}"]`);
+    let requiredAudioElement = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    requiredElement.classList.add('playing');
+    requiredAudioElement.currentTime = 0;
+    requiredAudioElement.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
 
 </script>
 
